@@ -28,17 +28,18 @@ export default class Video extends cc.Component {
     backBtn: cc.Node = null;
     isload = false;
     onLoad () {
-        this.ShowTapToContinue();
+        // this.ShowTapToContinue();
         this.videoPlayer.on('meta-loaded',this.playTest,this);
     }
 
     start () {
     }
     playTest(){
+      console.log('meta loaded');
       this.isload = true;
+      this.ShowTapToContinue();
     }
     ShowTapToContinue() {
-        // this.video.node.on('meta-loaded', ()=>{console.log("loaded")}, this);
         cc.tween(this.tapToContinue)
           .delay(2)
           .call(() => {
@@ -46,7 +47,6 @@ export default class Video extends cc.Component {
             this.tapToContinue.active = true;
             cc.tween(this.tapToContinue).to(0.5, { opacity: 255 }).start();
             this.overlayButton.interactable = true;
-            // this.video.isFullscreen = false;
             this.instantiateVideo();
             this.videoPlayer.active = true;
             this.Games.active = false;
@@ -65,10 +65,9 @@ export default class Video extends cc.Component {
         self.video.node.on(
           "completed",
           () => {
-            // this.videoPlayer.setScale(1);
             self.video.stop();
             self.video.node.parent = null;
-            self.video.node.destroy();
+            self.video.node.destroy(); // removes video element from DOM
             self.Games.active = true;
             self.backBtn.active = true;
           },
