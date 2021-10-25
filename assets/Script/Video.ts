@@ -65,7 +65,6 @@ export default class Video extends cc.Component {
         self.video.node.on(
           "completed",
           () => {
-            self.video.stop();
             self.video.node.parent = null;
             self.video.node.destroy(); // removes video element from DOM
             self.Games.active = true;
